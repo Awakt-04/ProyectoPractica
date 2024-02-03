@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ProyectoPractica</string>
+    <string name="PasswordHint">Contraseña</string>
+    <string name="UserHint">Usuario</string>
+    <string name="RegisterButton">Registrarse</string>
+    <string name="LogInButton">Iniciar Sesión</string>
+</resources>
