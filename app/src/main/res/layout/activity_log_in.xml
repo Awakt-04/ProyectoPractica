@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondoBlurred"
-    tools:context=".MainActivity" >
+    android:background="@drawable/fondo_blurred"
+    tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/editTextText"
@@ -37,20 +37,19 @@
         tools:layout_editor_absoluteY="595dp">
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/registerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
 
-            android:text="@string/LogInButton" />
+            android:text="@string/RegisterButton" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/logInButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/RegisterButton"
-            />
+            android:text="@string/LogInButton" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

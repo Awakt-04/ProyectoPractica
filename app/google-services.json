@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "422060108629",
+    "project_id": "proyectopractica-17c64",
+    "storage_bucket": "proyectopractica-17c64.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422060108629:android:ae1468a44fe0c1c7025ddc",
+        "android_client_info": {
+          "package_name": "com.example.proyectopractica"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfnftB_fcyKz9OjEdB2UPhAZLq1zbyz8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
