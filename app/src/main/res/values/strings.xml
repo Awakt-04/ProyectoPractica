@@ -4,4 +4,13 @@
     <string name="UserHint">Usuario</string>
     <string name="RegisterButton">Registrarse</string>
     <string name="LogInButton">Iniciar Sesión</string>
+
+<!--    Cadenas de control de campos -->
+    <string name="NameError">Nombre vacío</string>
+    <string name="PasswordBlankError">Contraseña vacía</string>
+    <string name="PasswordCapitalError">Contraseña sin mayúscula</string>
+    <string name="PasswordLengthError">Contraseña menor a 8 caracteres</string>
+    <string name="PasswordSimbolError">Contraseña sin símbolo</string>
+    <string name="PasswordNumberError">Contraseña sin número</string>
+    <string name="EmailHint">Email</string>
 </resources>

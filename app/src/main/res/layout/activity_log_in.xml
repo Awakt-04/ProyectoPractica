@@ -1,55 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Layout principal con fondo de cartelera.
+-->
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_blurred"
-    tools:context=".MainActivity">
+    tools:context=".LogInActivity">
 
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/UserHint"
-        android:inputType="text"
-        android:textColorHint="@color/black"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="219dp" />
+    <!--
+    Elemento que contendrá el resto, está centrado en la pantalla y tiene un color de fondo
+    negro con transparencia de un 80%.
+-->
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/PasswordHint"
-        android:inputType="textPassword"
-        android:textColorHint="@color/black"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="293dp" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="350dp"
+        android:layout_height="400dp"
+        app:cardBackgroundColor="#CC000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="595dp">
-
-        <Button
-            android:id="@+id/registerButton"
+        <!--
+    Primer campo de texto a rellenar, con un tamaño amplio para fácil lectura y pulsado, se
+    comprobará si está vacío en la ejecución del programa.
+-->
+        <EditText
+            android:id="@+id/usernameEditText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="50sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/UserHint"
+            android:inputType="text"
+            android:textColorHint="@color/white"
+            android:textSize="20sp" />
 
-            android:text="@string/RegisterButton" />
-
-        <Button
-            android:id="@+id/logInButton"
+        <!--
+    Segundo campo de texto a rellenar, con un tamaño amplio para fácil lectura y pulsado, se
+    comprobará si está vacío, si tiene 8 caracteres, si contiene una mayúscula, un dígito y
+    un símbolo en la ejecución del programa.
+-->
+        <EditText
+            android:id="@+id/passwordEditText"
             android:layout_width="wrap_content"
+            android:layout_height="50sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="150dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/PasswordHint"
+            android:inputType="textPassword"
+            android:textColorHint="@color/white"
+            android:textSize="20sp" />
+
+        <!--
+    Layout horizontal para colocación de botones de forma simétrica.
+-->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/LogInButton" />
-    </LinearLayout>
+            android:layout_marginTop="320dp"
+            android:orientation="horizontal">
+            <!--
+    Primer botón, envía al usuario a la pestaña de registro.
+-->
+            <Button
+                android:id="@+id/registerButton"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="70sp"
+                android:layout_weight="1"
+                android:text="@string/RegisterButton"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <!--
+    Segundo botón, realiza las comprobaciones de los campos de texto al pulsarlo y en caso de
+    no haber ningún error, envía al usuario a la pestaña principal.
+-->
+            <Button
+                android:id="@+id/logInButton"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="70sp"
+                android:layout_weight="1"
+                android:text="@string/LogInButton"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
