@@ -28,7 +28,7 @@ class LogInActivity : AppCompatActivity() {
         passwordText = findViewById(R.id.passwordEditText)
 
 
-        loginButton.setOnClickListener(){
+        loginButton.setOnClickListener {
             login()
         }
 
@@ -37,31 +37,24 @@ class LogInActivity : AppCompatActivity() {
     }
     
     private fun register(){
-        registerButton.setOnClickListener() {
+        registerButton.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
-    private fun login(){
-        var name = usernameText.text.toString()
-        var password = passwordText.text.toString()
-        var confirm = true
+    private fun login() {
+        val name = usernameText.text.toString()
+        val password = passwordText.text.toString()
 
         if (name.isBlank()) {
             usernameText.error = getString(R.string.NameError)
             usernameText.requestFocus()
-            confirm = false
         }
-
-        confirm = passConfirm(password)
-
-        if (confirm) {
-            Log.i("OK LogIn","Inicio de sesión correcto")
+        else if (passConfirm(password)) {
+            Log.i("OK LogIn", "Inicio de sesión correcto")
             startActivity(Intent(this, PrincipalActivity::class.java))
         }
-        else
-            Log.i("Error LogIn","Inicio de sesión fallido")
 
-
+        Log.w("Error LogIn", "Inicio de sesión fallido")
 
     }
 
