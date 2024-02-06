@@ -43,6 +43,7 @@
             android:ems="10"
             android:hint="@string/EmailHint"
             android:inputType="textEmailAddress"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="20sp" />
 
@@ -61,6 +62,7 @@
             android:ems="10"
             android:hint="@string/UserHint"
             android:inputType="text"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="20sp" />
 
@@ -80,6 +82,7 @@
             android:ems="10"
             android:hint="@string/PasswordHint"
             android:inputType="textPassword"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="20sp" />
 

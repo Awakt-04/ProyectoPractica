@@ -7,12 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.GridView
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,16 +15,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var fAuth : FirebaseAuth
-    private lateinit var bd : FirebaseFirestore
+    private lateinit var db : FirebaseFirestore
 
     private lateinit var avatarGrid :GridView
     private lateinit var avatarImage :ImageView
     private lateinit var avatarAdapter : AdapterAvatar
-
     private lateinit var emailText: EditText
     private lateinit var userText :EditText
     private lateinit var passwordText: EditText
-
     private lateinit var registerButton: Button
 
     private var avatar :Int = 0
@@ -50,6 +43,7 @@ class RegisterActivity : AppCompatActivity() {
 
         avatarAdapter = AdapterAvatar(this,list)
         fAuth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
 
         adaptarImagen()
 
@@ -82,30 +76,72 @@ class RegisterActivity : AppCompatActivity() {
         if (username.isBlank()) {
             userText.error = getString(R.string.NameError)
             userText.requestFocus()
+            return
         }
-        else if(emailCheck(email)){
-                if(passCheck(password)){
-                    Log.i("OK Registro","Registro correcto")
+        if(!emailCheck(email))
+            return
+        if (!passCheck(password))
+            return
 
-                    fAuth.createUserWithEmailAndPassword(email,password)
-                        .addOnCompleteListener(this) { task ->
-                            if (task.isSuccessful){
-                                val user = fAuth.currentUser
 
-                                val map = hashMapOf(
-                                    "username" to username,
-                                    "email" to email,
-                                    "imageId" to avatar
-                                )
+        Log.i("OK Registro","Registro correcto")
 
+        fAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = fAuth.currentUser
+                    val map = hashMapOf(
+                        "username" to username,
+                        "email" to email,
+                        "avatarId" to avatar
+                    )
+
+                    db.collection("users").document(user!!.uid)
+                        .set(map)
+                        .addOnSuccessListener {
+                            Log.i("DB user", "Usuario almacenado correctamente")
+                            Toast.makeText(this, "Usuario creado y almacenado correctamente", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this, LogInActivity::class.java))
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("DB user error", "Error al almacenar usuario", e)
+                            Toast.makeText(this, "Error al almacenar usuario: ${e.message}", Toast.LENGTH_SHORT).show()
+                            // Elimina el usuario recién creado si falla el almacenamiento en Firestore
+                            user.delete().addOnSuccessListener {
+                                Log.i("User deletion", "Usuario eliminado después del error de almacenamiento")
                             }
                         }
-
-                    startActivity(Intent(this, LogInActivity::class.java))
+                } else {
+                    Log.e("User creation error", "Error al crear usuario", task.exception)
+                    Toast.makeText(this, "Error al crear usuario: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-        Log.w("Error Registro","Registro fallido")
 
+    }
+
+    private fun validateInput(u: String, e: String, p: String): Boolean{
+        when{
+
+
+
+            e.isBlank() -> {
+                emailText.error = getString(R.string.EmailBlankError)
+                emailText.requestFocus()
+                return false
+            }
+            !e.contains("@") -> {
+                emailText.error = getString(R.string.EmailAtError)
+                emailText.requestFocus()
+                return false
+            }
+            !e.matches(Regex(".+\\.(com|net|org|gov|edu|mil|int|arpa|eu)$")) -> {
+                emailText.error = getString(R.string.EmailDomainError)
+                emailText.requestFocus()
+                return false
+            }
+            else -> return true
+        }
     }
 
     private fun emailCheck(s:String): Boolean{
@@ -115,7 +151,6 @@ class RegisterActivity : AppCompatActivity() {
                 emailText.requestFocus()
                 return false
             }
-
             !s.contains("@") -> {
                 emailText.error = getString(R.string.EmailAtError)
                 emailText.requestFocus()
@@ -126,7 +161,6 @@ class RegisterActivity : AppCompatActivity() {
                 emailText.requestFocus()
                 return false
             }
-
             else -> return true
         }
     }
@@ -163,7 +197,6 @@ class RegisterActivity : AppCompatActivity() {
             else -> return true
         }
     }
-
 }
 
 class AdapterAvatar(
@@ -174,11 +207,9 @@ class AdapterAvatar(
     override fun getCount(): Int {
         return list.size
     }
-
     override fun getItem(position: Int): Any {
         return list[position]
     }
-
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
@@ -189,9 +220,7 @@ class AdapterAvatar(
                 layoutParams = ViewGroup.LayoutParams(150, 150)
                 scaleType = ImageView.ScaleType.CENTER_CROP
             }
-        } else {
-            convertView as ImageView
-        }
+        } else { convertView as ImageView }
 
         imagen.setImageResource(list[position])
         return imagen
