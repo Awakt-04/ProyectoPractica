@@ -73,15 +73,7 @@ class RegisterActivity : AppCompatActivity() {
         val email = emailText.text.toString()
         val password = passwordText.text.toString()
 
-        if (username.isBlank()) {
-            userText.error = getString(R.string.NameError)
-            userText.requestFocus()
-            return
-        }
-        if(!emailCheck(email))
-            return
-        if (!passCheck(password))
-            return
+        if (!validateInput(username,email,password)){ return }
 
 
         Log.i("OK Registro","Registro correcto")
@@ -123,7 +115,16 @@ class RegisterActivity : AppCompatActivity() {
     private fun validateInput(u: String, e: String, p: String): Boolean{
         when{
 
-
+            u.isBlank() -> {
+                userText.error = getString(R.string.NameError)
+                userText.requestFocus()
+                return false
+            }
+            p.isBlank() -> {
+                passwordText.error = getString(R.string.PasswordBlankError)
+                passwordText.requestFocus()
+                return false
+            }
 
             e.isBlank() -> {
                 emailText.error = getString(R.string.EmailBlankError)
@@ -144,85 +145,4 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun emailCheck(s:String): Boolean{
-        when{
-            s.isBlank() -> {
-                emailText.error = getString(R.string.EmailBlankError)
-                emailText.requestFocus()
-                return false
-            }
-            !s.contains("@") -> {
-                emailText.error = getString(R.string.EmailAtError)
-                emailText.requestFocus()
-                return false
-            }
-            !s.matches(Regex(".+\\.(com|net|org|gov|edu|mil|int|arpa|eu)$")) -> {
-                emailText.error = getString(R.string.EmailDomainError)
-                emailText.requestFocus()
-                return false
-            }
-            else -> return true
-        }
-    }
-
-    private fun passCheck(s: String): Boolean{
-        when{
-            s.isBlank() -> {
-                passwordText.error = getString(R.string.PasswordBlankError)
-                passwordText.requestFocus()
-                return false
-            }
-            s.length < 8 -> {
-                passwordText.error = getString(R.string.PasswordLengthError)
-                passwordText.requestFocus()
-                return false
-            }
-            !s.contains(Regex("[A-Z]")) -> {
-                passwordText.error = getString(R.string.PasswordCapitalError)
-                passwordText.requestFocus()
-                return false
-            }
-
-            !s.contains(Regex("[0-9]")) -> {
-                passwordText.error = getString(R.string.PasswordNumberError)
-                passwordText.requestFocus()
-                return false
-            }
-
-            !s.contains(Regex("[\\W_]")) -> {
-                passwordText.error = getString(R.string.PasswordSimbolError)
-                passwordText.requestFocus()
-                return false
-            }
-            else -> return true
-        }
-    }
-}
-
-class AdapterAvatar(
-    private val context: Context,
-    private val list: IntArray
-)  : BaseAdapter(){
-
-    override fun getCount(): Int {
-        return list.size
-    }
-    override fun getItem(position: Int): Any {
-        return list[position]
-    }
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val imagen = if (convertView == null) {
-            ImageView(context).apply {
-                layoutParams = ViewGroup.LayoutParams(150, 150)
-                scaleType = ImageView.ScaleType.CENTER_CROP
-            }
-        } else { convertView as ImageView }
-
-        imagen.setImageResource(list[position])
-        return imagen
-    }
 }

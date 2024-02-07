@@ -5,6 +5,8 @@
     <string name="RegisterButton">Registrarse</string>
     <string name="LogInButton">Iniciar Sesión</string>
     <string name="EmailHint">Email</string>
+    <string name="MovieButton">Películas</string>
+    <string name="SerieButton">Series</string>
 
 <!--    Cadenas de control de campos -->
     <string name="NameError">Nombre vacío</string>
@@ -18,4 +20,6 @@
     <string name="EmailBlankError">Email vacío</string>
     <string name="EmailAtError">Email sin "@"</string>
     <string name="EmailDomainError">Email sin dominio aceptado</string>
+    <string name="UserDescription">Avatar de usuario</string>
+    <string name="ScrollDescription">Scroll con catálogo de series y películas</string>
 </resources>
