@@ -1,31 +1,21 @@
 package com.example.proyectopractica
 
-import android.content.ContentProvider
-import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.GridView
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.google.firebase.firestore.FirebaseFirestore
-
 class PrincipalActivity : AppCompatActivity() {
-    private lateinit var db: FirebaseFirestore
 
     private lateinit var adaptador: AdapterAvatar
     private lateinit var avatarButton: ImageButton
-    private lateinit var seriesButton: Button
-    private lateinit var moviesButton: Button
     private lateinit var moviesSeries: GridView
     private lateinit var spinner: Spinner
     private var item = 0
@@ -51,101 +41,71 @@ class PrincipalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
 
-
-//        db = FirebaseFirestore.getInstance()
-//        db.collection("users").get(user.uid)
-
         spinner = findViewById(R.id.spinner)
         avatarButton = findViewById(R.id.avatarButton)
-        seriesButton = findViewById(R.id.serieButton)
-        moviesButton = findViewById(R.id.movieButton)
         moviesSeries = findViewById(R.id.moviesSeriesList)
 
-        adaptador = AdapterAvatar(this, list)
+        adaptador = AdapterAvatar(this,list,300)
 
-//        adaptarImagen()
+//        val opciones = arrayOf("Peliculas y Series","Peliculas","Series")
+//
+//        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, opciones)
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        spinner.adapter = adapter
+//
+//        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(
+//                parent: AdapterView<*>?,
+//                view: View?,
+//                position: Int,
+//                id: Long
+//            ) {
+//                val opcionSeleccionada = opciones[position]
+////                val listaFiltrada = filtrarListaImagenes(opcionSeleccionada)
+//
+////                adaptador = AdapterAvatar(this@PrincipalActivity, listaFiltrada, 300)
+//                moviesSeries.adapter = adaptador
+//            }
+//
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        }
+
+
+        adaptarImagen()
 
         avatarButton.setOnClickListener {
             startActivity(Intent(this, UserActivity::class.java))
         }
-
-        seriesButton.setOnClickListener {
-            adaptarImagenSeries()
-        }
-
-        moviesButton.setOnClickListener {
-            adaptarImagenMovies()
-        }
     }
 
-    private fun adaptarImagenSeries() {
+    private fun adaptarImagen() {
         moviesSeries.adapter = adaptador
+
         moviesSeries.setOnItemClickListener { _, _, position, _ ->
             item = list[position]
             try {
-                Toast.makeText(
-                    this,
-                    "Serie seleccionada: ${resources.getResourceEntryName(item)}",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-            } catch (e: Resources.NotFoundException) {
+                Toast.makeText(this, "Avatar seleccionado: ${resources.getResourceEntryName(item)}", Toast.LENGTH_SHORT).show()
+            }catch (e : Resources.NotFoundException){
                 e.printStackTrace()
             }
         }
 
     }
 
-
-//        fun getView(position: Int, convertView: View?, parent: ViewGroup?): View{
-//            val imagen = if (convertView == null) {
-//                ImageView(this).apply {
-//                    layoutParams = ViewGroup.LayoutParams(200, 200)
-//                    scaleType = ImageView.ScaleType.CENTER_CROP
-//                }
-//            } else { convertView as ImageView
-//            }
-//
-//            imagen.setImageResource(list[position])
-//            return imagen
-//        }
-    }
-
-    private fun adaptarImagenSeries() {
-        moviesSeries.adapter = adaptador
-        moviesSeries.setOnItemClickListener { _, _, position, _ ->
-            item = series[position]
-            try {
-                Toast.makeText(
-                    this,
-                    "Serie seleccionada: ${resources.getResourceEntryName(item)}",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-            } catch (e: Resources.NotFoundException) {
-                e.printStackTrace()
-            }
-        }
-
-    }
-
-    private fun adaptarImagenMovies() {
-        moviesSeries.adapter = adaptador
-        moviesSeries.setOnItemClickListener { _, _, position, _ ->
-            item = movies[position]
-            try {
-                Toast.makeText(
-                    this,
-                    "Serie seleccionada: ${resources.getResourceEntryName(item)}",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-            } catch (e: Resources.NotFoundException) {
-                e.printStackTrace()
-            }
-        }
-
-    }
-
+//    private fun filtrarListaImagenes(op :String):IntArray {
+//        val lista : List<Int> = if (op == "Peliculas") {
+//            list.filter { resources.getResourceEntryName(it).startsWith("pelicula_") }
+//        } else (if (op == "Series") {
+//            list.filter { resources.getResourceEntryName(it).startsWith("serie_") }
+//        } else {
+//            movies.clone() + series.clone()
+//        }) as List<Int>
+//        return lista.toIntArray()
+//    }
 
 }
+
+

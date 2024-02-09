@@ -11,10 +11,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LogInActivity : AppCompatActivity() {
-// declaración de variables de servicio Firebase y Firestore
+//  Declaración de variables de servicio Firebase y Firestore
     private lateinit var fAuth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
-// declaración de elementos del layout
+//  Declaración de elementos del layout
     private lateinit var registerButton: Button
     private lateinit var loginButton: Button
     private lateinit var usernameText: EditText
@@ -22,69 +22,87 @@ class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
-// inicialización de variables de servicio Firebase y Firestore
+//  Inicialización de variables de servicio Firebase y Firestore
         fAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
-// referenciación de elementos del layout
+//  Referenciación de elementos del layout
         registerButton = findViewById(R.id.registerButton)
         loginButton = findViewById(R.id.logInButton)
         usernameText = findViewById(R.id.usernameEditText)
         passwordText = findViewById(R.id.passwordEditText)
-// función de inicio de sesión cuando se pulsa el botón
+//  Función de inicio de sesión cuando se pulsa el botón
         loginButton.setOnClickListener {
             login()
         }
-// cambio a actividad de registro
+//  Cambio a actividad de registro
         registerButton.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
-// función de inicio de sesión
+/*  Función de inicio de sesión
+        Permite comprobar la autenticación del usuario
+ */
     private fun login() {
-// declaración e inicialización de variables
-        val username = usernameText.text.toString().trim()
-        val password = passwordText.text.toString().trim()
-// comprobación campo usuario nulo
-        if (username.isEmpty()) {
-            usernameText.error = getString(R.string.NameError)
-            usernameText.requestFocus()
-            return
-        }
-// comprobación campo contraseña nulo
-        if (password.isEmpty()) {
-            passwordText.error = getString(R.string.PasswordBlankError)
-            passwordText.requestFocus()
-            return
-        }
-// obtención documento usuario con mismo nombre del introducido en el campo
-        db.collection("users").whereEqualTo("username", username).get()
-// si éxito al encontrar al usuario comprueba si el documento está vacío
-            .addOnSuccessListener { fich ->
-                if (!fich.isEmpty) {
-// si tiene contenido el documento, obtiene el email
-                    val email = fich.documents.first().getString("email")
-// si email encontrado
-                    if (email != null) {
-// comprobación de inicio de sesión de usuario autorizado (registrado)
-                        fAuth.signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(this) { task ->
-// si usuario autorizado manda mensaje de éxito y cambia a actividad principal
-                                if (task.isSuccessful) {
-                                    Log.d("SignIn", "Inicio de sesión correcto")
-                                    Toast.makeText(this,"Inicio de sesión correcto",Toast.LENGTH_SHORT).show()
-                                    startActivity(Intent(this, PrincipalActivity::class.java))
-// si usuario no autorizado log de error de inicio de sesión
-                                } else {
-                                    Log.w("SignInError", "Error de inicio de sesión")
-                                }
-                            }
-// si email no encontrado log de error de mail
-                    } else{ Log.e("EmailNotFound", "No se encontró el correo electrónico asociado al nombre de usuario.") }
-                }
+    val username = usernameText.text.toString().trim()
+    val password = passwordText.text.toString().trim()
+
+    if (validateInput(username, password)) {
+        comprobacionUsuarioExistente(username, password)
+    }
+}
+/*
+    Función de comprobación de usuario existente
+        Si existe el usuario, comprueba si el email y contraseña coinciden en la
+        autenticación de los mismos (función inicioSesionUsuario)
+ */
+    private fun comprobacionUsuarioExistente(usernameC: String, passwordC: String){
+        db.collection("users").whereEqualTo("username", usernameC).get().addOnSuccessListener { fich ->
+            if (!fich.isEmpty) {
+                val email = fich.documents.first().getString("email")
+                val avatarId = fich.documents.first().getLong("avatarId")
+                inicioSesionUsuario(email!!,passwordC,avatarId!!)
             }
-// si consulta fallida log de error de consulta
-            .addOnFailureListener {
-                Log.e("QueryError","Error de consulta")
+            else{ Log.e("EmailNotFound", "No se encontró el correo electrónico asociado al nombre de usuario.") }
+        }
+        .addOnFailureListener {
+            Log.e("QueryError","Error de consulta")
+        }
+    }
+/*
+    Función para comprobar la autenticación del usuario existente
+        Si la autenticación del correo y contraseña es correcta, manda al usuario un mensaje de
+        éxito y lo envía a la pestaña principal
+ */
+    private fun inicioSesionUsuario(emailL: String, passwordL: String, avatariDL: Long){
+        fAuth.signInWithEmailAndPassword(emailL, passwordL).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                Log.d("SignIn", "Inicio de sesión correcto")
+                Toast.makeText(this,"Inicio de sesión correcto",Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, PrincipalActivity::class.java)
+                intent.putExtra("avatarId",avatariDL)
+                startActivity(intent)
+            } else {
+                Log.w("SignInError", "Error de inicio de sesión")
             }
+        }
+    }
+/*
+    Función para validación de campos
+        Comprueba si el los campos EditText de usuario y contraseña no están en blanco
+ */
+    private fun validateInput(u: String, p: String): Boolean{
+        when {
+            u.isBlank() -> {
+                usernameText.error = getString(R.string.NameError)
+                usernameText.requestFocus()
+                return false
+            }
+            p.isBlank() -> {
+                passwordText.error = getString(R.string.PasswordBlankError)
+                passwordText.requestFocus()
+                return false
+            }
+            else -> return true
+        }
     }
 }

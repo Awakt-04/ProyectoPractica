@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="MovieSeries">
+        <item>Películas y Series</item>
         <item>Películas</item>
         <item>Series</item>
     </string-array>

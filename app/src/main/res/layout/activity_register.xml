@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
     Layout principal con fondo de cartelera.
 -->
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,7 +19,7 @@
         android:id="@+id/cardView"
         android:layout_width="350dp"
         android:layout_height="500dp"
-        app:cardBackgroundColor="#CC000000"
+        app:cardBackgroundColor="@color/negroTransparente"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,6 +31,17 @@
     comprobará si está vacío, si contiene un '@' y si acaba en .es, .com o semejantes en la
     ejecución del programa.
 -->
+        <Button
+            android:id="@+id/registerConfirmButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="70sp"
+            android:layout_marginTop="430dp"
+            android:layout_weight="1"
+            android:text="@string/RegisterButton"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
         <EditText
             android:id="@+id/emailRegEditText"
             android:layout_width="wrap_content"
@@ -89,28 +98,6 @@
         <!--
     Layout horizontal para colocación de botones de forma simétrica.
 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="430dp"
-            android:orientation="horizontal">
-
-            <!--
-    Botón que realiza las comprobaciones de los campos de texto y en caso de no haber errores
-    envía al usuario a la pestaña de inicio de sesión.
--->
-            <Button
-                android:id="@+id/registerConfirmButton"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="70sp"
-                android:layout_weight="1"
-                android:text="@string/RegisterButton"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -138,7 +125,5 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

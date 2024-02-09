@@ -8,7 +8,8 @@ import android.widget.ImageView
 
 class AdapterAvatar(
     private val context: Context,
-    private val list: IntArray
+    private val list: IntArray,
+    private val tamImg :Int
 )  : BaseAdapter(){
 
     override fun getCount(): Int {
@@ -24,7 +25,7 @@ class AdapterAvatar(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val imagen = if (convertView == null) {
             ImageView(context).apply {
-                layoutParams = ViewGroup.LayoutParams(150, 150)
+                layoutParams = ViewGroup.LayoutParams(tamImg, tamImg)
                 scaleType = ImageView.ScaleType.CENTER_CROP
             }
         } else { convertView as ImageView
