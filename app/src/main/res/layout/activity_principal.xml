@@ -62,10 +62,19 @@
         app:layout_constraintTop_toBottomOf="@+id/avatarButton"
         tools:layout_editor_absoluteX="1dp">
 
-        <GridView
-            android:id="@+id/moviesSeriesList"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <GridView
+                android:id="@+id/moviesSeriesList"
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:layout_marginTop="10dp"
+                android:numColumns="3"
+                android:padding="10dp" />
+        </LinearLayout>
     </ScrollView>
 
     <Spinner
