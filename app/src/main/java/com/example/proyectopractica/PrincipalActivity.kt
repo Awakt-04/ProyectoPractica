@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -96,17 +97,21 @@ class PrincipalActivity : AppCompatActivity() {
     }
 
     private fun avatarUsuario(){
+        val list = intArrayOf(R.drawable.avatar_amarillo, R.drawable.avatar_azul,
+            R.drawable.avatar_blanco, R.drawable.avatar_dorado, R.drawable.avatar_gris,
+            R.drawable.avatar_morado, R.drawable.avatar_negro, R.drawable.avatar_rosa)
+
         val currentUser = firebaseAuth.currentUser
-        currentUser?.let { user ->
-            val userId = user.uid
-            val userRef = db.collection("users").document(userId)
+        currentUser.let { user ->
+
+            val userRef = db.collection("users").document( user!!.uid)
 
             userRef.get().addOnSuccessListener { document ->
                 if (document.exists()) {
                     val avatarId = document.getLong("avatarId")
                     if (avatarId != null) {
                         try {
-                            avatarButton.setImageResource(avatarId.toInt())
+                            avatarButton.setImageResource(list[avatarId.toInt()])
                         } catch (e: Resources.NotFoundException) { e.printStackTrace() }
                     }
                 } else {
@@ -117,4 +122,5 @@ class PrincipalActivity : AppCompatActivity() {
             }
         }
     }
+
 }

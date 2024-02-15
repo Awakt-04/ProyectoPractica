@@ -79,7 +79,6 @@ class LogInActivity : AppCompatActivity() {
                 Log.d("SignIn", "Inicio de sesión correcto")
                 Toast.makeText(this,"Inicio de sesión correcto",Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, PrincipalActivity::class.java)
-                intent.putExtra("avatarId",avatariDL)
                 startActivity(intent)
             } else {
                 Log.w("SignInError", "Error de inicio de sesión")

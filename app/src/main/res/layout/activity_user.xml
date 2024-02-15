@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_blurred">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        app:cardBackgroundColor="@color/negroTransparente"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/fieldAvatarImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/UserDescription"
+                app:srcCompat="@drawable/avatar_blanco" />
+
+            <GridView
+                android:id="@+id/changeAvatarImage"
+                android:layout_width="231dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:horizontalSpacing="8dp"
+                android:numColumns="4"
+                android:padding="8dp"
+                android:verticalSpacing="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/showAvatarImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/UserDescription" />
+
+        <TextView
+            android:id="@+id/showUsername"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="200dp"
+            android:gravity="start|center_vertical"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/changeUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:ems="10"
+            android:hint="@string/PasswordChange"
+            android:minHeight="48dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:visibility="gone"
+            app:boxStrokeColor="@color/negroTransparente"
+            app:hintTextColor="@color/white"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white"
+            tools:ignore="Autofill,TextFields,TextContrastCheck">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fieldUsername"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:inputType="textPassword"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/showEmail"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="275dp"
+            android:gravity="start|center_vertical"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/changeEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:ems="10"
+            android:hint="@string/PasswordChange"
+            android:minHeight="48dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:visibility="gone"
+            app:boxStrokeColor="@color/negroTransparente"
+            app:hintTextColor="@color/white"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white"
+            tools:ignore="Autofill,TextFields,TextContrastCheck">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fieldEmail"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:inputType="textPassword"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/showPassword"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:gravity="start|center_vertical"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/changePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="350dp"
+            android:ems="10"
+            android:hint="@string/PasswordChange"
+            android:minHeight="48dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:visibility="gone"
+            app:boxStrokeColor="@color/negroTransparente"
+            app:hintTextColor="@color/white"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/white"
+            tools:ignore="Autofill,TextFields,TextContrastCheck">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fieldPassword"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:inputType="textPassword"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/backButton"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="70sp"
+            android:layout_marginTop="430dp"
+            android:layout_weight="1"
+            android:text="@string/Back"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

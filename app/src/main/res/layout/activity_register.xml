@@ -32,7 +32,7 @@
     ejecución del programa.
 -->
         <Button
-            android:id="@+id/registerConfirmButton"
+            android:id="@+id/backButton"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="70sp"
@@ -105,7 +105,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/avatarImage"
+                android:id="@+id/fieldAvatarImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_vertical"
@@ -113,7 +113,7 @@
                 app:srcCompat="@drawable/avatar_blanco" />
 
             <GridView
-                android:id="@+id/avatarGrid"
+                android:id="@+id/changeAvatarImage"
                 android:layout_width="231dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"

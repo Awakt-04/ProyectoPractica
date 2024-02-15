@@ -22,4 +22,6 @@
     <string name="EmailDomainError">Email sin dominio aceptado</string>
     <string name="UserDescription">Avatar de usuario</string>
     <string name="ScrollDescription">Scroll con catálogo de series y películas</string>
+    <string name="Back">Volver</string>
+    <string name="PasswordChange">Introduce contraseña</string>
 </resources>

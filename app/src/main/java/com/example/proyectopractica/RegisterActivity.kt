@@ -32,12 +32,12 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 //      Inicialización de variables de objetos del Layout
-        avatarGrid = findViewById(R.id.avatarGrid)
-        avatarImage = findViewById(R.id.avatarImage)
+        avatarGrid = findViewById(R.id.changeAvatarImage)
+        avatarImage = findViewById(R.id.fieldAvatarImage)
         emailText = findViewById(R.id.emailRegEditText)
         userText = findViewById(R.id.usernameRegEditText)
         passwordText = findViewById(R.id.passwordRegEditText)
-        registerButton = findViewById(R.id.registerConfirmButton)
+        registerButton = findViewById(R.id.backButton)
 //      Inicialización de adaptador de avatares y variables de Firebase
         avatarAdapter = AdapterAvatar(this,list,150)
         fAuth = FirebaseAuth.getInstance()
@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
 
             En caso de no tener recursos manda una excepción.
 */
-    private fun adaptarImagen() {
+    private fun adaptarImagen(){
         avatarGrid.adapter = avatarAdapter
 
         avatarGrid.setOnItemClickListener { _, _, position, _ ->
@@ -70,7 +70,6 @@ class RegisterActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
-
     }
 /*
     Función para confirmar el registro del usuario
@@ -105,7 +104,7 @@ class RegisterActivity : AppCompatActivity() {
             .addOnFailureListener{ Log.e("No usuario válido","Error al comprobar usuario") }
     }
 
-/*
+/*f
     Función para crear el usuario
         Nos permite autenticar y crear el usuario en Firebase, esta autenticación se hace con
         email y contraseña, para guardar el nombre de usuario y el id del avatar, mandaremos un
@@ -124,6 +123,9 @@ class RegisterActivity : AppCompatActivity() {
                     Log.w("No crear usuario", "Error en creación de usuario", task.exception)
                     Toast.makeText(this, "Error al crear usuario, cuenta de correo ya utilizada", Toast.LENGTH_LONG).show()
                 }
+            }
+            .addOnFailureListener {
+
             }
     }
 /*
@@ -147,7 +149,7 @@ class RegisterActivity : AppCompatActivity() {
                 finish()
             }
             .addOnFailureListener {
-                Log.e("No usuario guardado", "Error al almacenar usuario",)
+                Log.e("No usuario guardado", "Error al almacenar usuario")
                 Toast.makeText(this, "Error al almacenar usuario", Toast.LENGTH_SHORT).show()
                 userS.delete().addOnSuccessListener {
                     Log.i("Usuario eliminado", "Usuario eliminado después del error de almacenamiento")
