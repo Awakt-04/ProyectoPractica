@@ -43,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
         fAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 //      Función para adaptación de imagenes de avatar
-        adaptarImagen()
+        avatar = adaptarImagen()
 //      Cuando se pulsa el botón de registro comprueba si se puede registrar el usuario y almacenarlo correctamente
         registerButton.setOnClickListener {
             confirmReg()
@@ -58,18 +58,20 @@ class RegisterActivity : AppCompatActivity() {
 
             En caso de no tener recursos manda una excepción.
 */
-    private fun adaptarImagen(){
+    private fun adaptarImagen(): Int{
         avatarGrid.adapter = avatarAdapter
 
         avatarGrid.setOnItemClickListener { _, _, position, _ ->
             avatar = list[position]
             avatarImage.setImageResource(avatar)
             try {
+                Log.d("idImagen",avatar.toString())
                 Toast.makeText(this, "Avatar seleccionado: ${resources.getResourceEntryName(avatar)}", Toast.LENGTH_SHORT).show()
             }catch (e : Resources.NotFoundException){
                 e.printStackTrace()
             }
         }
+        return list[avatar]
     }
 /*
     Función para confirmar el registro del usuario
@@ -112,12 +114,13 @@ class RegisterActivity : AppCompatActivity() {
  */
 
     private fun crearUsuario(usernameC: String,emailC: String,passwordC: String) {
+        val avatarId = avatar
         fAuth.createUserWithEmailAndPassword(emailC, passwordC)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = fAuth.currentUser
                     val map = hashMapOf<String, Any>("username" to usernameC, "email" to emailC,
-                                                    "avatarId" to avatar)
+                                                    "avatarId" to avatarId, "password" to passwordC)
                     guardarUsuario(user, map)
                 } else {
                     Log.w("No crear usuario", "Error en creación de usuario", task.exception)
@@ -170,58 +173,58 @@ class RegisterActivity : AppCompatActivity() {
         - Campo de contraseña con una cadena de mínimo 8 caracteres, una mayúscula, un símbolo y un
           número
  */
-    private fun validateInput(u: String, e: String, p: String): Boolean{
-        when{
-            u.isBlank() -> {
-                userText.error = getString(R.string.NameError)
-                userText.requestFocus()
-                return false
-            }
-            p.isBlank() -> {
-                passwordText.error = getString(R.string.PasswordBlankError)
-                passwordText.requestFocus()
-                return false
-            }
-            p.length < 8 -> {
-                passwordText.error = getString(R.string.PasswordLengthError)
-                passwordText.requestFocus()
-                return false
-            }
-
-            !p.contains(Regex("[A-Z]")) -> {
-                passwordText.error = getString(R.string.PasswordCapitalError)
-                passwordText.requestFocus()
-                return false
-
-            }
-
-            !p.contains(Regex("[0-9]")) -> {
-                passwordText.error = getString(R.string.PasswordNumberError)
-                passwordText.requestFocus()
-                return false
-            }
-
-            !p.contains(Regex("[\\W_]")) -> {
-                passwordText.error = getString(R.string.PasswordSimbolError)
-                passwordText.requestFocus()
-                return false
-            }
-            e.isBlank() -> {
-                emailText.error = getString(R.string.EmailBlankError)
-                emailText.requestFocus()
-                return false
-            }
-            !e.contains("@") -> {
-                emailText.error = getString(R.string.EmailAtError)
-                emailText.requestFocus()
-                return false
-            }
-            !e.matches(Regex(".+\\.(com|net|org|gov|edu|mil|int|arpa|eu|es)$")) -> {
-                emailText.error = getString(R.string.EmailDomainError)
-                emailText.requestFocus()
-                return false
-            }
-            else -> return true
+private fun validateInput(u: String, e: String, p: String): Boolean{
+    when{
+        u.isBlank() -> {
+            userText.error = getString(R.string.NameError)
+            userText.requestFocus()
+            return false
         }
+        p.isBlank() -> {
+            passwordText.error = getString(R.string.PasswordBlankError)
+            passwordText.requestFocus()
+            return false
+        }
+        p.length < 8 -> {
+            passwordText.error = getString(R.string.PasswordLengthError)
+            passwordText.requestFocus()
+            return false
+        }
+
+        !p.contains(Regex("[A-Z]")) -> {
+            passwordText.error = getString(R.string.PasswordCapitalError)
+            passwordText.requestFocus()
+            return false
+
+        }
+
+        !p.contains(Regex("[0-9]")) -> {
+            passwordText.error = getString(R.string.PasswordNumberError)
+            passwordText.requestFocus()
+            return false
+        }
+
+        !p.contains(Regex("[\\W_]")) -> {
+            passwordText.error = getString(R.string.PasswordSimbolError)
+            passwordText.requestFocus()
+            return false
+        }
+        e.isBlank() -> {
+            emailText.error = getString(R.string.EmailBlankError)
+            emailText.requestFocus()
+            return false
+        }
+        !e.contains("@") -> {
+            emailText.error = getString(R.string.EmailAtError)
+            emailText.requestFocus()
+            return false
+        }
+        !e.matches(Regex(".+\\.(com|net|org|gov|edu|mil|int|arpa|eu|es)$")) -> {
+            emailText.error = getString(R.string.EmailDomainError)
+            emailText.requestFocus()
+            return false
+        }
+        else -> return true
     }
+}
 }

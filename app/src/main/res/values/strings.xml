@@ -24,4 +24,6 @@
     <string name="ScrollDescription">Scroll con catálogo de series y películas</string>
     <string name="Back">Volver</string>
     <string name="PasswordChange">Introduce contraseña</string>
+    <string name="UserChange">Introduce usuario</string>
+    <string name="EmailChange">Cambiar correo</string>
 </resources>

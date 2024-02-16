@@ -97,9 +97,7 @@ class PrincipalActivity : AppCompatActivity() {
     }
 
     private fun avatarUsuario(){
-        val list = intArrayOf(R.drawable.avatar_amarillo, R.drawable.avatar_azul,
-            R.drawable.avatar_blanco, R.drawable.avatar_dorado, R.drawable.avatar_gris,
-            R.drawable.avatar_morado, R.drawable.avatar_negro, R.drawable.avatar_rosa)
+
 
         val currentUser = firebaseAuth.currentUser
         currentUser.let { user ->
@@ -111,7 +109,7 @@ class PrincipalActivity : AppCompatActivity() {
                     val avatarId = document.getLong("avatarId")
                     if (avatarId != null) {
                         try {
-                            avatarButton.setImageResource(list[avatarId.toInt()])
+                            avatarButton.setImageResource(avatarId.toInt())
                         } catch (e: Resources.NotFoundException) { e.printStackTrace() }
                     }
                 } else {
