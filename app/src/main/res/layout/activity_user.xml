@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo_blurred">
 
+    <!--    Elemento CardView que engloba el resto de subelementos -->
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
         android:layout_height="500dp"
@@ -14,14 +15,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-
+        app:layout_constraintTop_toTopOf="parent">
+        <!--    LinearLayout que contiene lo necesario para cambiar el avatar del usaurio -->
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="gone">
-
+            <!--    Imagen mostrada para ver cual quiere cambiar el usuario-->
             <ImageView
                 android:id="@+id/fieldAvatarImage"
                 android:layout_width="100dp"
@@ -30,7 +32,7 @@
                 android:layout_margin="10dp"
                 android:contentDescription="@string/UserDescription"
                 app:srcCompat="@drawable/avatar_blanco" />
-
+            <!--    GridView con todos los avatares que puede elegir el usuario-->
             <GridView
                 android:id="@+id/changeAvatarImage"
                 android:layout_width="231dp"
@@ -44,7 +46,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         </LinearLayout>
-
+        <!-- Imagen del usuario actual-->
         <ImageButton
             android:id="@+id/showAvatarImage"
             android:layout_width="150dp"
@@ -52,24 +54,24 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:contentDescription="@string/UserDescription" />
-
+        <!--    Nombre de usuario actual -->
         <TextView
             android:id="@+id/showUsername"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="275dp"
             android:gravity="start|center_vertical"
             android:text="TextView"
             android:textColor="@color/white"
             android:textSize="20sp" />
-
+        <!--    Campo para modificar el nombre de usuario-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/changeUsername"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="275dp"
             android:ems="10"
             android:hint="@string/UserChange"
             android:minHeight="48dp"
@@ -88,43 +90,18 @@
                 android:inputType="text"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
-
+        <!--    Email del usuario-->
         <TextView
             android:id="@+id/showEmail"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="275dp"
+            android:layout_marginTop="200dp"
             android:gravity="start|center_vertical"
             android:text="TextView"
             android:textColor="@color/white"
             android:textSize="20sp" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/changeEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="275dp"
-            android:ems="10"
-            android:hint="@string/EmailChange"
-            android:minHeight="48dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:visibility="gone"
-            app:boxStrokeColor="@color/negroTransparente"
-            app:hintTextColor="@color/white"
-            app:passwordToggleTint="@color/white"
-            tools:ignore="Autofill,TextFields,TextContrastCheck">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fieldEmail"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:inputType="text|textWebEmailAddress"
-                android:textColor="@color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
-
+        <!--    Contraseña del usuario-->
         <TextView
             android:id="@+id/showPassword"
             android:layout_width="250dp"
@@ -132,10 +109,12 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="350dp"
             android:gravity="start|center_vertical"
+            android:inputType="text|textPassword"
+            android:password="true"
             android:text="TextView"
             android:textColor="@color/white"
             android:textSize="20sp" />
-
+        <!--    Campo para cambiar la contraseña del usuario-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/changePassword"
             android:layout_width="wrap_content"
@@ -161,7 +140,7 @@
                 android:inputType="textPassword"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
-
+        <!--    Botón para comprobar campos y volver a la actividad anterior-->
         <Button
             android:id="@+id/backButton"
             style="?android:attr/buttonBarButtonStyle"

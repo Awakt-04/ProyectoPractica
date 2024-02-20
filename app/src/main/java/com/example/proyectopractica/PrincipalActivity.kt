@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -78,7 +77,7 @@ class PrincipalActivity : AppCompatActivity() {
         moviesSeries.setOnItemClickListener { _, _, position, _ ->
             item = list[position]
             try {
-                val obj =  resources.getResourceEntryName(item)
+                val obj = resources.getResourceEntryName(item)
                 if(obj.startsWith("pelicula"))
                     Toast.makeText(this, obj.subSequence(9,obj.length), Toast.LENGTH_SHORT).show()
                 else

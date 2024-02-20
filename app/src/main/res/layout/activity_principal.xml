@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo_blurred">
 
+    <!-- ImageButton para el avatar del usuario -->
+
     <ImageButton
         android:id="@+id/avatarButton"
         android:layout_width="150dp"
@@ -19,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- ScrollView para permitir desplazamiento vertical -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="500dp"
@@ -29,11 +32,13 @@
         app:layout_constraintTop_toBottomOf="@+id/avatarButton"
         tools:layout_editor_absoluteX="1dp">
 
+        <!-- LinearLayout para organizar elementos secundarios en disposición vertical -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- GridView para mostrar películas o series -->
             <GridView
                 android:id="@+id/moviesSeriesList"
                 android:layout_width="match_parent"
@@ -45,6 +50,7 @@
         </LinearLayout>
     </ScrollView>
 
+    <!-- Spinner para seleccionar el tipo de contenido -->
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="200dp"
